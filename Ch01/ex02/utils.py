@@ -1,7 +1,9 @@
 import torch
+from torchvision.transforms import transforms as T
+
 from PIL import Image
 import numpy as np
-from torchvision.transforms import transforms as T
+import matplotlib.pyplot as plt 
 
 def print_image_from_tensor(x):
     if len(x.shape) == 3:
