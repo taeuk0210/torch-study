@@ -54,4 +54,4 @@ def train(
             'fixed':fixed
             }, f'./DCGAN-model-flower102-E{num_epochs}.pt')
 
-        np.save('./DCGAN-images-flower102-E{num_epochs}.npy', np.array(img_list))
+        np.savez_compressed(f'./DCGAN-images-flower102-E{num_epochs}.npz', np.array(img_list))
