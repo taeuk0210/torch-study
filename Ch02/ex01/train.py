@@ -1,6 +1,5 @@
 import torch
 import torch.nn.functional as F
-import numpy as np
 from tqdm.notebook import tqdm
 
 from utils import get_grid_image, print_image
@@ -46,12 +45,10 @@ def train(
         if epoch % 20 == 0:
             print_image(G(fixed))
 
-    # save result
+    # save checkpoint
 
     torch.save({
         'G':G.state_dict(),
         'D':D.state_dict(),
         'fixed':fixed
         }, f'./DCGAN-model-flower102-E{num_epochs}.pt')
-
-    np.savez_compressed(f'./DCGAN-images-flower102-E{num_epochs}.npz', np.array(img_list))

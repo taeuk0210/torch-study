@@ -1,22 +1,28 @@
 import torch
 from torchvision.utils import make_grid
 
+import ipywidgets as widgets
 import numpy as np
 import matplotlib.pyplot as plt
 
-from celluloid import Camera
+def show_interact_image(imgs, transpose=True):
+    # 이미지 출력 함수
+    def show_image(index):
+        
+        img = imgs[index].cpu()
+        if transpose:
+            img = (img + 1) / 2  # [-1, 1] → [0, 1] 정규화
+            img = np.transpose(img, (1,2,0))  # (C, H, W) → (H, W, C)
 
-def make_video(img_load):
-    fig, ax = plt.subplots()
-    camera = Camera(fig)
-    for i in range(img_load.shape[0]):
-        ax.axis('off')
-        ax.imshow(img_load[i])
-        camera.snap()
-    # interval=500 (0.5초), repeat : 반복여부
-    # interval을 3/200 = 0.015 초로 
-    animation = camera.animate(interval=30, repeat=False)
-    animation.save('./sample.mp4')
+        plt.figure(figsize=(3, 3))
+        plt.imshow(img)
+        plt.axis('off')
+        plt.title(f"Generated Image #{index}")
+        plt.show()
+
+    # 슬라이더 위젯 만들기
+    slider = widgets.IntSlider(value=0, min=0, max=len(imgs)-1, step=1, description='index:')
+    widgets.interact(show_image, index=slider)
 
 def get_grid_image(imgs):
     imgs = imgs.detach().cpu()
