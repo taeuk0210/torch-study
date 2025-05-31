@@ -46,12 +46,12 @@ def train(
         if epoch % 20 == 0:
             print_image(G(fixed))
 
-        # save result
+    # save result
 
-        torch.save({
-            'G':G.state_dict(),
-            'D':D.state_dict(),
-            'fixed':fixed
-            }, f'./DCGAN-model-flower102-E{num_epochs}.pt')
+    torch.save({
+        'G':G.state_dict(),
+        'D':D.state_dict(),
+        'fixed':fixed
+        }, f'./DCGAN-model-flower102-E{num_epochs}.pt')
 
-        np.savez_compressed(f'./DCGAN-images-flower102-E{num_epochs}.npz', np.array(img_list))
+    np.savez_compressed(f'./DCGAN-images-flower102-E{num_epochs}.npz', np.array(img_list))
