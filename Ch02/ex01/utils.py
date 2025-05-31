@@ -35,3 +35,6 @@ def print_image(imgs):
         plt.axis('off')
         plt.imshow(imgs)
         plt.show()
+
+def interpolate(z1, z2, n=20):
+    return torch.stack([(1 - t) * z1 + t * z2 for t in torch.linspace(0, 1, n)])
